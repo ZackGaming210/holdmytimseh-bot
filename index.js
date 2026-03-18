@@ -1,3 +1,7 @@
+// --- Dummy port for Render Web Service ---
+import express from "express";
+const app = express();
+const port = process.env.PORT || 3000;
 import { Client, GatewayIntentBits, EmbedBuilder, PermissionsBitField } from "discord.js";
 import tmi from "tmi.js";
 import fetch from "node-fetch";
