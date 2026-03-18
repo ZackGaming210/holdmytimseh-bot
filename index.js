@@ -1,13 +1,11 @@
 import { Client, GatewayIntentBits } from 'discord.js';
 import { GiveawaysManager } from 'discord-giveaways';
+import { QuickDB } from 'quick.db'; // ✅ Correct import
 import fs from 'fs';
 import { fileURLToPath } from 'url';
 import path from 'path';
-import { QuickDB } from 'quick.db';
-const db = new QuickDB();
 import ms from 'ms';
 
-// Discord client
 const client = new Client({
   intents: [
     GatewayIntentBits.Guilds,
@@ -18,10 +16,8 @@ const client = new Client({
   ]
 });
 
-// QuickDB setup
-const db = new QuickDB();
+const db = new QuickDB(); // ✅ Works now
 
-// Giveaways manager setup
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -37,12 +33,10 @@ const manager = new GiveawaysManager(client, {
 
 client.giveawaysManager = manager;
 
-// Bot ready
 client.on('ready', () => {
   console.log(`${client.user.tag} is online!`);
 });
 
-// Example: simple message command
 client.on('messageCreate', async (message) => {
   if (message.author.bot) return;
   if (message.content.toLowerCase() === '!ping') {
@@ -50,5 +44,4 @@ client.on('messageCreate', async (message) => {
   }
 });
 
-// Login
 client.login(process.env.DISCORD_TOKEN);
