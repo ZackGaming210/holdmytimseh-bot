@@ -1,44 +1,52 @@
-// index.js
-import { Client, GatewayIntentBits } from 'discord.js';
-import { GiveawaysManager } from 'discord-giveaways';
-import { QuickDB } from 'quick.db';
+import { Client, GatewayIntentBits } from "discord.js";
+import { GiveawaysManager } from "discord-giveaways";
+import { QuickDB } from "quick.db";
+import fs from "fs";
 
-// === Create Discord client ===
+// Load environment variables from Render secrets
+const token = process.env.BOT_TOKEN;
+if (!token) {
+  console.error("❌ BOT_TOKEN is not set in Render environment variables.");
+  process.exit(1);
+}
+
+// Initialize Discord client
 const client = new Client({
-    intents: [
-        GatewayIntentBits.Guilds,
-        GatewayIntentBits.GuildMessages,
-        GatewayIntentBits.GuildMessageReactions,
-        GatewayIntentBits.MessageContent,
-    ],
+  intents: [
+    GatewayIntentBits.Guilds,
+    GatewayIntentBits.GuildMessages,
+    GatewayIntentBits.GuildMessageReactions
+  ]
 });
 
-// === Setup QuickDB for giveaways ===
+// Initialize database
 const db = new QuickDB();
 
-// === Setup GiveawaysManager ===
+// Ensure giveaways storage exists
+const giveawaysFile = "./giveaways.json";
+if (!fs.existsSync(giveawaysFile)) {
+  fs.writeFileSync(giveawaysFile, "[]", "utf-8");
+}
+
+// Initialize giveaways manager
 const manager = new GiveawaysManager(client, {
-    storage: './giveaways.json', // storage file
-    default: {
-        botsCanWin: false,
-        embedColor: '#FF0000',
-        reaction: '🎉',
-    },
+  storage: giveawaysFile,
+  updateCountdownEvery: 5000,
+  default: {
+    botsCanWin: false,
+    embedColor: "#FF0000",
+    reaction: "🎉"
+  }
 });
 
-client.giveawaysManager = manager;
-
-// === Bot ready event ===
-client.once('ready', () => {
-    console.log(`Logged in as ${client.user.tag}!`);
+// Events
+client.once("ready", () => {
+  console.log(`✅ Logged in as ${client.user.tag}`);
 });
 
-// === Optional: simple message command example ===
-client.on('messageCreate', (message) => {
-    if (message.content.toLowerCase() === '!ping') {
-        message.reply('Pong!');
-    }
+manager.on("giveawayEnded", (giveaway, winners) => {
+  console.log(`Giveaway ended: ${giveaway.messageId}, Winners: ${winners.map(u => u.tag).join(", ")}`);
 });
 
-// === Login ===
-client.login(process.env.BOT_TOKEN); // Set BOT_TOKEN in Render secrets
+// Login
+client.login(token);
