@@ -1,6 +1,7 @@
 {
   "name": "holdmytimseh-bot",
   "version": "1.0.0",
+  "description": "Discord moderation, leveling, Twitch alerts, and giveaways bot",
   "type": "module",
   "main": "index.js",
   "scripts": {
