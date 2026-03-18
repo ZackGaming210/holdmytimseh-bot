@@ -1,10 +1,10 @@
 {
-  "name": "holdmytimseh-bot",
+  "name": "insane-discord-bot",
   "version": "1.0.0",
-  "description": "Discord bot with giveaways and quick.db support",
+  "description": "Discord bot with moderation, Twitch notifications, chat bridge, and giveaways",
   "type": "module",
   "engines": {
-    "node": ">=20.0.0"
+    "node": ">=22.0.0"
   },
   "scripts": {
     "start": "node index.js"
@@ -12,6 +12,8 @@
   "dependencies": {
     "discord.js": "^14.16.0",
     "discord-giveaways": "^5.0.2",
-    "quick.db": "^7.1.3"
+    "quick.db": "^7.1.3",
+    "tmi.js": "^1.8.5",
+    "dotenv": "^16.3.1"
   }
 }
