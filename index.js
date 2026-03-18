@@ -3,7 +3,8 @@ import { GiveawaysManager } from 'discord-giveaways';
 import fs from 'fs';
 import { fileURLToPath } from 'url';
 import path from 'path';
-import QuickDB from 'quick.db';
+import { QuickDB } from 'quick.db';
+const db = new QuickDB();
 import ms from 'ms';
 
 // Discord client
