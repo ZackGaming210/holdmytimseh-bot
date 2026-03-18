@@ -7,12 +7,12 @@ const db = new QuickDB();
 
 const client = new Client({
   intents: [
-    GatewayIntentBits.Guilds,
-    GatewayIntentBits.GuildMessages,
-    GatewayIntentBits.MessageContent,
-    GatewayIntentBits.GuildMembers
-  ]
-});
+  GatewayIntentBits.Guilds,
+  GatewayIntentBits.GuildMessages,
+  GatewayIntentBits.MessageContent,
+  GatewayIntentBits.GuildMembers,
+  GatewayIntentBits.GuildMessageReactions
+]
 
 // 🎁 Giveaway system
 const manager = new GiveawaysManager(client, {
