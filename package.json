@@ -1,18 +1,17 @@
 {
   "name": "holdmytimseh-bot",
   "version": "1.0.0",
-  "description": "Discord bot with giveaways",
+  "description": "Discord bot with giveaways and quick.db support",
   "type": "module",
-  "main": "index.js",
+  "engines": {
+    "node": ">=20.0.0"
+  },
   "scripts": {
     "start": "node index.js"
   },
   "dependencies": {
     "discord.js": "^14.16.0",
     "discord-giveaways": "^5.0.2",
-    "quick.db": "^8.5.0"
-  },
-  "engines": {
-    "node": ">=20.0.0"
+    "quick.db": "^7.1.3"
   }
 }
