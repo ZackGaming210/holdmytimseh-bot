@@ -1,9 +1,9 @@
 import { Client, GatewayIntentBits } from 'discord.js';
 import { GiveawaysManager } from 'discord-giveaways';
-import { QuickDB } from 'quick.db'; // ✅ Correct import
+import { QuickDB } from 'quick.db'; // ✅ Correct ESM import
 import fs from 'fs';
-import { fileURLToPath } from 'url';
 import path from 'path';
+import { fileURLToPath } from 'url';
 import ms from 'ms';
 
 const client = new Client({
@@ -16,8 +16,10 @@ const client = new Client({
   ]
 });
 
-const db = new QuickDB(); // ✅ Works now
+// QuickDB
+const db = new QuickDB();
 
+// Giveaways manager
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -33,10 +35,12 @@ const manager = new GiveawaysManager(client, {
 
 client.giveawaysManager = manager;
 
+// Bot ready
 client.on('ready', () => {
   console.log(`${client.user.tag} is online!`);
 });
 
+// Example: simple message command
 client.on('messageCreate', async (message) => {
   if (message.author.bot) return;
   if (message.content.toLowerCase() === '!ping') {
@@ -44,4 +48,5 @@ client.on('messageCreate', async (message) => {
   }
 });
 
+// Login using environment variable
 client.login(process.env.DISCORD_TOKEN);
