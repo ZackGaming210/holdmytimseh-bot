@@ -20,20 +20,20 @@ const client = new Client({
 const db = new QuickDB();
 
 // Giveaways manager
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const { GiveawaysManager } = require('discord-giveaways');
+const client = new Discord.Client({ intents: 32767 });
 
 const manager = new GiveawaysManager(client, {
-  storage: path.join(__dirname, 'giveaways.json'),
-  updateCountdownEvery: 5000,
-  default: {
-    botsCanWin: false,
-    embedColor: '#FF0000',
-    reaction: '🎉'
-  }
+    storage: './giveaways.json',
+    default: {
+        botsCanWin: false,
+        embedColor: '#FF0000',
+        reaction: '🎉'
+    }
 });
 
 client.giveawaysManager = manager;
+});
 
 // Bot ready
 client.on('ready', () => {
