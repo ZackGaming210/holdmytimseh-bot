@@ -20,20 +20,20 @@ const client = new Client({
 const db = new QuickDB();
 
 // Giveaways manager
+const { Client, GatewayIntentBits } = require('discord.js');
 const { GiveawaysManager } = require('discord-giveaways');
-const client = new Discord.Client({ intents: 32767 });
+const client = new Client({ intents: 32767 });
 
 const manager = new GiveawaysManager(client, {
-    storage: './giveaways.json',
-    default: {
-        botsCanWin: false,
-        embedColor: '#FF0000',
-        reaction: '🎉'
-    }
+  storage: './giveaways.json',
+  default: {
+    botsCanWin: false,
+    embedColor: '#FF0000',
+    reaction: '🎉'
+  }
 });
 
 client.giveawaysManager = manager;
-});
 
 // Bot ready
 client.on('ready', () => {
