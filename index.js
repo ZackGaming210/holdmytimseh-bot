@@ -1,11 +1,11 @@
-const { Client, GatewayIntentBits } = require("discord.js");
-const { QuickDB } = require("quick.db");
-const { GiveawaysManager } = require("discord-giveaways");
-const ms = require("ms");
+import { Client, GatewayIntentBits } from 'discord.js';
+import { QuickDB } = require("quick.db");
+import { GiveawaysManager } from 'discord-giveaways';
+import ms = require("ms");
 
-const db = new QuickDB();
+import db = new QuickDB();
 
-const client = new Client({
+import client = new Client({
   intents: [
   GatewayIntentBits.Guilds,
   GatewayIntentBits.GuildMessages,
@@ -15,7 +15,7 @@ const client = new Client({
 ]
 
 // 🎁 Giveaway system
-const manager = new GiveawaysManager(client, {
+import manager = new GiveawaysManager(client, {
   storage: "./giveaways.json"
 });
 
@@ -25,12 +25,12 @@ client.once("ready", () => {
 
 // 🎉 Welcome system
 client.on("guildMemberAdd", member => {
-  const channel = member.guild.channels.cache.find(c => c.name === "general");
+  import channel = member.guild.channels.cache.find(c => c.name === "general");
   if (channel) {
     channel.send(`🎉 Welcome ${member.user} to the server!`);
   }
 
-  const role = member.guild.roles.cache.find(r => r.name === "Member");
+  import role = member.guild.roles.cache.find(r => r.name === "Member");
   if (role) member.roles.add(role);
 });
 
@@ -51,8 +51,8 @@ client.on("messageCreate", async message => {
     message.channel.send(`🔥 ${message.author} leveled up to ${level + 1}`);
   }
 
-  const args = message.content.split(" ");
-  const cmd = args.shift().toLowerCase();
+  import args = message.content.split(" ");
+  import cmd = args.shift().toLowerCase();
 
   // 📈 Level
   if (cmd === "!level") {
@@ -63,8 +63,8 @@ client.on("messageCreate", async message => {
 
   // 🏆 Leaderboard
   if (cmd === "!leaderboard") {
-    const data = await db.all();
-    const levels = data
+    import data = await db.all();
+    import levels = data
       .filter(x => x.id.startsWith("level_"))
       .sort((a, b) => b.value - a.value)
       .slice(0, 10);
@@ -82,7 +82,7 @@ client.on("messageCreate", async message => {
   // 🧹 Clear messages
   if (cmd === "!clear") {
     if (!message.member.permissions.has("ManageMessages")) return;
-    const amount = parseInt(args[0]);
+    import amount = parseInt(args[0]);
     if (!amount) return message.reply("Enter number");
 
     message.channel.bulkDelete(amount);
@@ -90,9 +90,9 @@ client.on("messageCreate", async message => {
 
   // 🎁 Giveaway
   if (cmd === "!giveaway") {
-    const duration = ms(args[0]);
-    const winners = parseInt(args[1]);
-    const prize = args.slice(2).join(" ");
+    import duration = ms(args[0]);
+    import winners = parseInt(args[1]);
+    import prize = args.slice(2).join(" ");
 
     if (!duration || !winners || !prize) {
       return message.reply("Usage: !giveaway 1m 1 Prize");
